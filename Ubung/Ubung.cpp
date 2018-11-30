@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	//##########################################
 	// Sequentiell #############################
 	//##########################################
-	//int* tmpList = new int[numberCount];
+	//int* mSortList = new int[numberCount];
 	////add random numbers to unsortedList
 	//for (i = 0; i < numberCount; i++) {
 	//	unsortedList[i] = rand() % 1001;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 	//for (i = 0; i < iterations; i++) {
 	//	clock_start = omp_get_wtime(); // Start time
 
-	//	MergeSort(unsortedList, tmpList, 0, numberCount - 1);
+	//	MergeSort(unsortedList, mSortList, 0, numberCount - 1);
 
 	//	clock_stop = omp_get_wtime(); //finish time
 	//	wtime = clock_stop - clock_start;
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
 }
 
 //mUnsortedList = original unsorted List
-//tmpList = temporary sorted list
+//mSortList = temporary sorted list
 //mStart = start index of a sublist respective to start index of this list in the unsorted list
 //mEnd = end index of a sublist respective to end index of this list in the unsorted list
 void MergeSortParallel(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
@@ -135,11 +135,9 @@ void MergeSortParallel(int* mUnsortedList, int* mSortList, int mStart, int mEnd)
 void MergeParallel(int* mUnsortedList, int* mSortList, int mStart, int mMid, int mEnd) {
 	int left = mStart; // begin of the left side
 	int right = mMid + 1; // begin of the right sub-array
-
-	// sort and save in tmpList
 	int i;
 
-	//sort list and use tmpList as temporary save
+	//sort list and use sort as temporary save
 	for (i = mStart; i <= mEnd; i++) {
 		if (left == mMid + 1) {
 			// left pointer has reached the limit
@@ -160,14 +158,14 @@ void MergeParallel(int* mUnsortedList, int* mSortList, int mStart, int mMid, int
 		}
 	}
 
-	//copy sorted tmpList to unsortedList
+	//copy sorted list to unsortedList
 	for (int j = mStart; j <= mEnd; j++) {
 		mUnsortedList[j] = mSortList[j];
 	}	
 }
 
 //mUnsortedList = original unsorted List
-//tmpList = temporary sorted list
+//mSortList = temporary sorted list
 //mStart = start index of a sublist respective to start index of this list in the unsorted list
 //mEnd = end index of a sublist respective to end index of this list in the unsorted list
 void MergeSort(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
@@ -186,7 +184,7 @@ void MergeSort(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
 	int pointer_right = mid + 1; // begin of the right sub-array
 
 	//### MERGE
-	// sort and save in tmpList
+	// sort and save in mSortList
 	int i;
 	for (i = mStart; i <= mEnd; i++) {
 		if (pointer_left == mid + 1) {
@@ -211,7 +209,7 @@ void MergeSort(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
 		}
 	}
 
-	// copy sorted tmpList to unsortedList
+	// copy sorted mSortList to unsortedList
 	for (i = mStart; i <= mEnd; i++) {
 		mUnsortedList[i] = mSortList[i];
 	}
