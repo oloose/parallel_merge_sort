@@ -35,64 +35,64 @@ int main(int argc, char *argv[]) {
 	//##########################################
 	// Sequentiell #############################
 	//##########################################
-	int* tmpList = new int[numberCount];
-	//add random numbers to unsortedList
-	for (i = 0; i < numberCount; i++) {
-		unsortedList[i] = rand() % 1001;
-	}
-
-	for (int k = 0; k <= numberCount; k++) {
-		printf("%d\n", unsortedList[k]);
-	}
-	printf("##################\n\n");
-
-	for (i = 0; i < iterations; i++) {
-		clock_start = omp_get_wtime(); // Start time
-
-		MergeSort(unsortedList, tmpList, 0, numberCount - 1);
-
-		clock_stop = omp_get_wtime(); //finish time
-		wtime = clock_stop - clock_start;
-		printf("Sequentiell Time %14f\n", wtime);
-		avgTime += (clock_stop - clock_start);
-	}
-	//for (i = 0; i < numberCount; i++) {
-	//	printf("%d\n", unsortedList[i]);
-	//}
-
-	printf("\nAvg Sequentiell Time %14f\n", avgTime / iterations);
-	avgTime = 0;
-
-	//##########################################
-	// OpenMP ##################################
-	//##########################################
-	//int* sortList = new int[numberCount];
+	//int* tmpList = new int[numberCount];
 	////add random numbers to unsortedList
 	//for (i = 0; i < numberCount; i++) {
 	//	unsortedList[i] = rand() % 1001;
 	//}
 
+	//for (int k = 0; k <= numberCount; k++) {
+	//	printf("%d\n", unsortedList[k]);
+	//}
+	//printf("##################\n\n");
 
 	//for (i = 0; i < iterations; i++) {
 	//	clock_start = omp_get_wtime(); // Start time
 
-	//	#pragma omp parallel
-	//	{
-	//		#pragma omp single
-	//		MergeSortParallel(unsortedList, sortList, 0, numberCount - 1);
-	//	}
-
+	//	MergeSort(unsortedList, tmpList, 0, numberCount - 1);
 
 	//	clock_stop = omp_get_wtime(); //finish time
 	//	wtime = clock_stop - clock_start;
-	//	printf("Parallel Time %14f\n", wtime);
+	//	printf("Sequentiell Time %14f\n", wtime);
 	//	avgTime += (clock_stop - clock_start);
 	//}
-	////for (i = 0; i < numberCount; i++) {
-	////	printf("%d\n", sortList[i]);
-	////}
-	//printf("\nAvg nParallel Time %14f\n", avgTime / iterations);
+	//for (i = 0; i < numberCount; i++) {
+	//	printf("%d\n", unsortedList[i]);
+	//}
+
+	//printf("\nAvg Sequentiell Time %14f\n", avgTime / iterations);
 	//avgTime = 0;
+
+	//##########################################
+	// OpenMP ##################################
+	//##########################################
+	int* sortList = new int[numberCount];
+	//add random numbers to unsortedList
+	for (i = 0; i < numberCount; i++) {
+		unsortedList[i] = rand() % 1001;
+	}
+
+
+	for (i = 0; i < iterations; i++) {
+		clock_start = omp_get_wtime(); // Start time
+
+		#pragma omp parallel
+		{
+			#pragma omp single
+			MergeSortParallel(unsortedList, sortList, 0, numberCount - 1);
+		}
+
+
+		clock_stop = omp_get_wtime(); //finish time
+		wtime = clock_stop - clock_start;
+		printf("Parallel Time %14f\n", wtime);
+		avgTime += (clock_stop - clock_start);
+	}
+	//for (i = 0; i < numberCount; i++) {
+	//	printf("%d\n", sortList[i]);
+	//}
+	printf("\nAvg nParallel Time %14f\n", avgTime / iterations);
+	avgTime = 0;
 	return 0;
 }
 
