@@ -41,11 +41,6 @@ int main(int argc, char *argv[]) {
 	//	unsortedList[i] = rand() % 1001;
 	//}
 
-	//for (int k = 0; k <= numberCount; k++) {
-	//	printf("%d\n", unsortedList[k]);
-	//}
-	//printf("##################\n\n");
-
 	//for (i = 0; i < iterations; i++) {
 	//	clock_start = omp_get_wtime(); // Start time
 
@@ -56,9 +51,9 @@ int main(int argc, char *argv[]) {
 	//	printf("Sequentiell Time %14f\n", wtime);
 	//	avgTime += (clock_stop - clock_start);
 	//}
-	//for (i = 0; i < numberCount; i++) {
-	//	printf("%d\n", unsortedList[i]);
-	//}
+	////for (i = 0; i < numberCount; i++) {
+	////	printf("%d\n", unsortedList[i]);
+	////}
 
 	//printf("\nAvg Sequentiell Time %14f\n", avgTime / iterations);
 	//avgTime = 0;
@@ -138,6 +133,8 @@ void MergeParallel(int* mUnsortedList, int* mSortList, int mStart, int mMid, int
 	int i;
 
 	// sort and save in mSortList
+	// using binary search over both halfs (left to mid | mid to right)
+	// to determine next value in mSortList
 	for (i = mStart; i <= mEnd; i++) {
 		if (left == mMid + 1) {
 			// left at end
@@ -184,7 +181,9 @@ void MergeSort(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
 	int right = mid + 1; // begin of the right side
 
 	//### MERGE
-	// sort and save in mSortList
+	// sort and save in mSortList,
+	// using binary search over both halfs (left to mid | mid to right)
+	// to determine next value in mSortList
 	int i;
 	for (i = mStart; i <= mEnd; i++) {
 		if (left == mid + 1) {
