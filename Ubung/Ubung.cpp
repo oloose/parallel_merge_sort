@@ -137,22 +137,22 @@ void MergeParallel(int* mUnsortedList, int* mSortList, int mStart, int mMid, int
 	int right = mMid + 1; // begin of the right sub-array
 	int i;
 
-	//sort list and use sort as temporary save
+	// sort and save in mSortList
 	for (i = mStart; i <= mEnd; i++) {
 		if (left == mMid + 1) {
-			// left pointer has reached the limit
+			// left at end
 			mSortList[i] = mUnsortedList[right];
 			right++;
 		} else if (right == mEnd + 1) {
-			// right pointer has reached the limit
+			// right at end
 			mSortList[i] = mUnsortedList[left];
 			left++;
 		} else if (mUnsortedList[left] < mUnsortedList[right]) {
-			// pointer left points to smaller element       
+			// left is smaller        
 			mSortList[i] = mUnsortedList[left];
 			left++;
 		} else {
-			// pointer right points to smaller element      
+			// right is smaller        
 			mSortList[i] = mUnsortedList[right];
 			right++;
 		}
@@ -180,32 +180,29 @@ void MergeSort(int* mUnsortedList, int* mSortList, int mStart, int mEnd) {
 	//right side
 	MergeSort(mUnsortedList, mSortList, mid + 1, mEnd);
 
-	int pointer_left = mStart; // begin of the left side
-	int pointer_right = mid + 1; // begin of the right sub-array
+	int left = mStart; // begin of the left side
+	int right = mid + 1; // begin of the right side
 
 	//### MERGE
 	// sort and save in mSortList
 	int i;
 	for (i = mStart; i <= mEnd; i++) {
-		if (pointer_left == mid + 1) {
-			// left has reached the limit
-			mSortList[i] = mUnsortedList[pointer_right];
-			pointer_right++;
-		}
-		else if (pointer_right == mEnd + 1) {
-			// right has reached the limit
-			mSortList[i] = mUnsortedList[pointer_left];
-			pointer_left++;
-		}
-		else if (mUnsortedList[pointer_left] < mUnsortedList[pointer_right]) {
-			// left points to smaller element       
-			mSortList[i] = mUnsortedList[pointer_left];
-			pointer_left++;
-		}
-		else {
-			// right points to smaller element      
-			mSortList[i] = mUnsortedList[pointer_right];
-			pointer_right++;
+		if (left == mid + 1) {
+			// left at end
+			mSortList[i] = mUnsortedList[right];
+			right++;
+		} else if (right == mEnd + 1) {
+			// right at end
+			mSortList[i] = mUnsortedList[left];
+			left++;
+		} else if (mUnsortedList[left] < mUnsortedList[right]) {
+			// left is smaller        
+			mSortList[i] = mUnsortedList[left];
+			left++;
+		} else {
+			// right is smaller      
+			mSortList[i] = mUnsortedList[right];
+			right++;
 		}
 	}
 
