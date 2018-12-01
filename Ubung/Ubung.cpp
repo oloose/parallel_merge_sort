@@ -14,7 +14,7 @@ void MergeParallel(int* mUnsortedList, int* mSortedList, int mStart, int mMid, i
 
 int count = 0;
 const int iterations = 1;
-int numberCount = 10;
+int numberCount = 200000000;
 int main(int argc, char *argv[]) {
 	int procs = 4;
 	if (argc > 1) {
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 		#pragma omp parallel
 		{
 			#pragma omp single
-			MergeSortParallel(unsortedList, sortList, 0, numberCount - 1);
+			MergeSortParallel(unsortedList, sortList, 0, numberCount - 1); //numberCount = list size
 		}
 
 
@@ -83,9 +83,9 @@ int main(int argc, char *argv[]) {
 		printf("Parallel Time %14f\n", wtime);
 		avgTime += (clock_stop - clock_start);
 	}
-	//for (i = 0; i < numberCount; i++) {
-	//	printf("%d\n", sortList[i]);
-	//}
+	/*for (i = 0; i < numberCount; i++) {
+		printf("%d\n", sortList[i]);
+	}*/
 	printf("\nAvg nParallel Time %14f\n", avgTime / iterations);
 	avgTime = 0;
 	return 0;
